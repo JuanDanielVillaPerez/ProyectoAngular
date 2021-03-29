@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <div class="container">
+
+        <div class="card card-container">
+            <div class="text-center">
+            <h1>Bienvenido</h1>
+         </div>
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin"
+            [formGroup]="loginForm"
+            (ngSubmit)="login()">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input 
+                type="email" 
+                id="inputEmail" 
+                class="form-control" 
+                placeholder="Correo Electronico" 
+                formControlName="email"
+                [class.is-invalid]="emailValidate"
+                >
+                <input 
+                type="password" 
+                id="inputPassword" 
+                class="form-control" 
+                placeholder="Contraseña" 
+                formControlName="password"
+                [class.is-invalid]="passwordValidate">
+               
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
+                [disabled]="emailValidate" [disabled]="passwordValidate">Iniciar Sesion</button>
+            </form>
+            <div class="text-center">
+            <a [routerLink]="['/register']" class="Registrate">
+                Registrate
+            </a>
+        </div>
+ 
+        </div>
+    </div>

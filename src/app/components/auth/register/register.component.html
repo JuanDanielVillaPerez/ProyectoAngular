@@ -1,0 +1,62 @@
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+
+
+    <div class="container">
+
+        <div class="card card-container">
+            <div class="text-center">
+            <h1>Registro</h1>
+         </div>
+         
+            <p id="profile-name" class="profile-name-card"></p>
+            <form 
+            class="form-signin animated fadeIn"
+            autocomplete="off" 
+            [formGroup]="registerForm" 
+            (ngSubmit)="register()" 
+            >
+
+                <span id="reauth-email" class="reauth-email"></span>
+
+                <input type="text" 
+                id="inputusername" 
+                class="form-control" 
+                placeholder="Nombre" 
+                formControlName="username"
+                [class.is-invalid]="usernameValidate"
+                >
+                <input type="email" 
+                id="Email" 
+                class="form-control" 
+                placeholder="Correo Electronico" 
+                formControlName="email"
+                [class.is-invalid]="emailValidate"
+                >
+                <input type="password" 
+                id="Contraseña" 
+                class="form-control" 
+                placeholder="Contraseña" 
+                formControlName="password"
+                [class.is-invalid]="passwordValidate"
+                >
+                <input type="password" 
+                id="Contraseña2" 
+                class="form-control" 
+                placeholder="Confirma contraseña" 
+                formControlName="password2"
+                [class.is-invalid]="password2Validate">
+                <!--<input type="date" id="Fecha" class="form-control" >-->
+            <p></p>
+               
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" 
+                [disabled]="password2Validate" [disabled]="usernameValidate" [disabled]="emailValidate">Registrarse</button>
+            </form>
+            
+            <div class="text-center">
+            <a [routerLink]="['/login']" class="volver">
+                Volver
+            </a>
+        </div>
+        </div>
+    </div>
+
