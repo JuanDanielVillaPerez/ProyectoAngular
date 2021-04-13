@@ -14,6 +14,15 @@ export class ValService {
   temperaturas():Observable<any>{
     return this.http.get(`${this.apiURL}temp`)
   }
+  humedades():Observable<any>{
+    return this.http.get(`${this.apiURL}humedad`)
+  }
+  humedadelsuelo():Observable<any>{
+    return this.http.get(`${this.apiURL}humesuelo`)
+  }
+  pir():Observable<any>{
+    return this.http.get(`${this.apiURL}pir`)
+  }
   lastemp():Observable<any>{
     return this.http.get(`${this.apiURL}lastemp`)
   }

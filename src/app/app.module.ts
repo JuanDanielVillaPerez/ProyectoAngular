@@ -9,6 +9,9 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/main/home/home.component';
 import { TemperaturaComponent } from './components/main/temperatura/temperatura.component';
+import { HumedadComponent } from './components/main/humedad/humedad.component';
+import { HumesueloComponent } from './components/main/humesuelo/humesuelo.component';
+import { PirComponent } from './components/main/pir/pir.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { TemperaturaComponent } from './components/main/temperatura/temperatura.
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    TemperaturaComponent
+    TemperaturaComponent,
+    HumedadComponent,
+    HumesueloComponent,
+    PirComponent
   ],
   imports: [
     BrowserModule,
