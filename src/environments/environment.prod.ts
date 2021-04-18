@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiURL: 'http://127.0.0.1:3333/'
+  apiURL: 'https://invernadero-api.herokuapp.com/'
 };
 
 //https://invernadero-api.herokuapp.com/
