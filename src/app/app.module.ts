@@ -12,6 +12,7 @@ import { TemperaturaComponent } from './components/main/temperatura/temperatura.
 import { HumedadComponent } from './components/main/humedad/humedad.component';
 import { HumesueloComponent } from './components/main/humesuelo/humesuelo.component';
 import { PirComponent } from './components/main/pir/pir.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PirComponent } from './components/main/pir/pir.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

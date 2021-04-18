@@ -49,13 +49,14 @@ export function confirmDialog(msg: string, cancel: string, confirm: string) {
 export function timeMessage(text: string, time) {
     let timerInterval;
     return Swal.fire({
+        showConfirmButton: false,
         html: text,
         timer: time,
-        onBeforeOpen: () => {
+        willOpen: () => {
             Swal.showLoading();
             timerInterval = setInterval(() => { }, 100);
         },
-        onClose: () => {
+        willClose: () => {
             clearInterval(timerInterval);
         }
     });

@@ -35,4 +35,10 @@ export class ValService {
   lastpir():Observable<any>{
     return this.http.get(`${this.apiURL}lastpir`)
   }
+  tempgraph():Observable<any>{
+    return this.http.get(`${this.apiURL}graphtemp`)
+  }
+  humegraph():Observable<any>{
+    return this.http.get(`${this.apiURL}graphume`)
+  }
 }
