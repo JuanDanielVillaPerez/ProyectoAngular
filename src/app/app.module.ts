@@ -13,6 +13,7 @@ import { HumedadComponent } from './components/main/humedad/humedad.component';
 import { HumesueloComponent } from './components/main/humesuelo/humesuelo.component';
 import { PirComponent } from './components/main/pir/pir.component';
 import { ChartsModule } from 'ng2-charts';
+import { CookieService } from 'ngx-cookie-service'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { ChartsModule } from 'ng2-charts';
     HttpClientModule,
     ChartsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

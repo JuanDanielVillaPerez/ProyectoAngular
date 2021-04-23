@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Valores } from 'src/app/models/valores';
 import { ValService } from 'src/app/services/val.service';
+import Ws from "@adonisjs/websocket-client"
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,10 @@ import { ValService } from 'src/app/services/val.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  ws:any;
+  chat:any
+  //mensajes:string[] = [];
+  //msj:string;
 
   datalastemp: Valores[]
   datalasthume: Valores[]
@@ -22,8 +27,26 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    /*setTimeout(()=>{
+      window.location.reload();
+    },5000);*/
+
+    this.ws = Ws("ws://localhost:3333",{
+      path: "ws"
+    });
+
+    this.ws.connect();
+    this.chat = this.ws.subscribe("chat");
+
+    this.chat.on("message",(data:any)=>{
+      console.log(data);
+      
+    })
+
     this.ValService.lastemp().subscribe((data:any)=>{
       console.log(data)
+      //this.chat.emit("message",data)
       this.datalastemp = data;
     })
     this.ValService.lasthume().subscribe((data:any)=>{
@@ -39,5 +62,7 @@ export class HomeComponent implements OnInit {
       this.datalastpir = data;
     })
   }
+
+  
 
 }

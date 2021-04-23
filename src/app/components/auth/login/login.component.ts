@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup , Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { errorMessage, successDialog, timeMessage } from 'src/app/functions/alerts';
 import { Userl } from 'src/app/models/userl';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm:FormGroup
   user:Userl;
-  constructor(private fb:FormBuilder, private authService:AuthService, private router:Router) { 
+  constructor(private fb:FormBuilder, private authService:AuthService, private router:Router, private cookieService:CookieService) { 
     this.createForm();
   }
 
@@ -33,6 +34,8 @@ export class LoginComponent implements OnInit {
         console.log('usuario logeado')
         timeMessage('Iniciando...',1500).then(() => {
           successDialog('Iniciado').then(() => {
+            //console.log(data.token)
+            this.cookieService.set('token_acces',data.token,4,'/')
             this.router.navigate(['/home'])
           })
         })
