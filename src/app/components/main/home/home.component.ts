@@ -28,10 +28,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    /*setTimeout(()=>{
-      window.location.reload();
-    },5000);*/
-
     this.ws = Ws("ws://localhost:3333",{
       path: "ws"
     });
@@ -39,16 +35,19 @@ export class HomeComponent implements OnInit {
     this.ws.connect();
     this.chat = this.ws.subscribe("chat");
 
-    this.chat.on("message",(data:any)=>{
-      console.log(data);
+    //while (true){
+     //window.location.reload();
+     this.ValService.lastemp().subscribe((data:any)=>{
+      console.log(data)
+      this.chat.emit("message",data)
       
     })
-
-    this.ValService.lastemp().subscribe((data:any)=>{
-      console.log(data)
-      //this.chat.emit("message",data)
+     this.chat.on("message",(data:any)=>{
+      console.log(data);
       this.datalastemp = data;
     })
+
+  
     this.ValService.lasthume().subscribe((data:any)=>{
       console.log(data)
       this.datalasthume = data;
@@ -61,6 +60,10 @@ export class HomeComponent implements OnInit {
       console.log(data)
       this.datalastpir = data;
     })
+
+    setTimeout( () => { /*Your Code*/ }, 50000 );
+
+    //}
   }
 
   

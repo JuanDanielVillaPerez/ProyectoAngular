@@ -81,21 +81,21 @@
             <tr>
               <td>
                <label class="switch">
-                 <input type="checkbox" >
+                 <input type="checkbox" id="light">
                 <span class="slider"></span>
                </label>
               </td>
 
               <td>
                 <label class="switch">
-                  <input type="checkbox" >
+                  <input type="checkbox" id="light2">
                  <span class="slider"></span>
                 </label>
               </td>
 
               <td>
                 <label class="switch">
-                  <input type="checkbox">
+                  <input type="checkbox" id="light3">
                  <span class="slider"></span>
                 </label> 
             </td>
@@ -108,3 +108,43 @@
   </div>
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script> <!-- include socket.io client side script -->
+<script>
+var socket = io(); //load socket.io-client and connect to the host that serves the page
+window.addEventListener("load", function(){ //when page loads
+  var lightbox = document.getElementById("light");
+  var lightbox2 = document.getElementById("light2");
+  var lightbox3 = document.getElementById("light3");
+lightbox.addEventListener("change", function() { //add event listener for when checkbox changes
+    socket.emit("light", Number(this.checked)); //send button status to server (as 1 or 0)
+});
+
+  lightbox2.addEventListener("change",function() {
+    socket.emit("light2", Number(this.checked));
+});
+
+   lightbox3.addEventListener("change",function() {
+    socket.emit("light3", Number(this.checked));
+});
+
+
+
+});
+socket.on('light', function (data) { //get button status from client
+  document.getElementById("light").checked = data; //change checkbox according to push button on Raspberry Pi
+  socket.emit("light", data); //send push button status to back to server
+});
+
+socket.on('light2', function (data) {
+  document.getElementById("light2").checked = data;
+  socket.emit("light2", data);
+});
+
+socket.on('light3', function (data) {
+  document.getElementById("light3").checked = data;
+  socket.emit("light3", data);
+});
+
+
+
+</script>
