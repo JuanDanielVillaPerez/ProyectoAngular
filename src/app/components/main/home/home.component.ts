@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ws = Ws("ws://localhost:3333",{
+    this.ws = Ws("ws://invernadero-api.herokuapp.com/",{
       path: "ws"
     });
 
