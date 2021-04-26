@@ -35,7 +35,8 @@ export class HomeComponent implements OnInit {
 
 
     //wss://invernadero-api.herokuapp.com/
-    this.ws = Ws("ws://127.0.0.1:3333/",{
+    //ws://127.0.0.1:3333/
+    this.ws = Ws("wss://invernadero-api.herokuapp.com/",{
       path: "ws"
     });
 
