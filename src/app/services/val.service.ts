@@ -41,4 +41,28 @@ export class ValService {
   humegraph():Observable<any>{
     return this.http.get(`${this.apiURL}graphume`)
   }
+  mostemp():Observable<any>{
+    return this.http.get(`${this.apiURL}mostemp`)
+  }
+  worstemp():Observable<any>{
+    return this.http.get(`${this.apiURL}worstemp`)
+  }
+  mosthumedad():Observable<any>{
+    return this.http.get(`${this.apiURL}mosthumedad`)
+  }
+  worsthumedad():Observable<any>{
+    return this.http.get(`${this.apiURL}worsthumedad`)
+  }
+  seco():Observable<any>{
+    return this.http.get(`${this.apiURL}seco`)
+  }
+  humedo():Observable<any>{
+    return this.http.get(`${this.apiURL}humedo`)
+  }
+  detecta():Observable<any>{
+    return this.http.get(`${this.apiURL}detecta`)
+  }
+  nodetecta():Observable<any>{
+    return this.http.get(`${this.apiURL}nodetecta`)
+  }
 }

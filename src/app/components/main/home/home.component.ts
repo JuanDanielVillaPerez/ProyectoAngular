@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Valores } from 'src/app/models/valores';
 import { ValService } from 'src/app/services/val.service';
 import Ws from "@adonisjs/websocket-client"
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   datalasthumesuelo: Valores[]
   datalastpir: Valores[]
 
-  constructor(private ValService: ValService) { 
+  constructor(private ValService: ValService, private cookie:CookieService) { 
     this.datalastemp=[]
     this.datalasthume=[]
     this.datalasthumesuelo=[]
@@ -28,11 +29,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ws = Ws("ws://invernadero-api.herokuapp.com/",{
+    this.ws = Ws("wss://invernadero-api.herokuapp.com/",{
       path: "ws"
     });
 
     this.ws.connect();
+    
     this.chat = this.ws.subscribe("chat");
 
     //while (true){
@@ -64,6 +66,11 @@ export class HomeComponent implements OnInit {
     setTimeout( () => { /*Your Code*/ }, 50000 );
 
     //}
+  }
+
+  salir(){
+    this.cookie.delete('token_acces')
+    window.location.reload()
   }
 
   

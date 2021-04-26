@@ -5,6 +5,7 @@ import { ValService } from 'src/app/services/val.service';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-temperatura',
@@ -36,10 +37,15 @@ export class TemperaturaComponent implements OnInit {
   public graphdata = []
   
   temperaturas: Valores[]
-  
-  constructor(private ValService:ValService) {
+  datalastemp: Valores[]
+  mostemp: Valores[]
+  worstemp: Valores[]
+
+  constructor(private ValService:ValService, private cookie:CookieService) {
     this.temperaturas=[]
-    
+    this.datalastemp=[]
+    this.mostemp=[]
+    this.worstemp=[]
    }
 
   ngOnInit(): void {
@@ -72,6 +78,15 @@ export class TemperaturaComponent implements OnInit {
       console.log(this.graphdata)
       console.log(this.graphLabel)
     })
+    this.ValService.lastemp().subscribe((data:any)=>{
+      this.datalastemp = data
+    })
+    this.ValService.mostemp().subscribe((data:any)=>{
+      this.mostemp = data
+    })
+    this.ValService.worstemp().subscribe((data:any)=>{
+      this.worstemp = data
+    })
   }
 
     // events
@@ -83,16 +98,12 @@ export class TemperaturaComponent implements OnInit {
       console.log(event, active);
     }
 
-    /*public randomize(): void {
-      // Only Change 3 values
-      console.log(this.barChartData)
-      console.log(this.barChartLabels)
-    }*/
+    actualizar(){
+     window.location.reload() 
+    }
 
-    /*cargarDatos(datos){
-      this.barChartData = []
-      for(const index in datos){
-        this.barChartData.push({data: datos[index], label: 'Temperatura'})
-      }
-    }*/
+    salir(){
+      this.cookie.delete('token_acces')
+      window.location.reload()
+    }
 }

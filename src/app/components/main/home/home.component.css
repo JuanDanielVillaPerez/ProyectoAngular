@@ -41,4 +41,19 @@ input:checked + .slider::before{
 
 .card-container{
     margin-top: 20px;
+    background-color: #4e4e4e;
+}
+
+.container{
+    color: black;
+}
+
+a,a:hover{
+	color: black;
+}
+nav{
+    color: white;
+}
+hr{
+    background-color: white;
 }

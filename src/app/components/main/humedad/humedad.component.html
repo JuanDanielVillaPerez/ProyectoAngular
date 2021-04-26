@@ -1,11 +1,40 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<div class="container">
-  <div class="text-center">
-    <h1>Humedad</h1>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" >Domio</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a [routerLink]="['/home']" class="nav-link">Home</a>
+        <a [routerLink]="['/temperatura']" class="nav-link">Temperatura</a>
+        <a [routerLink]="['/humedad']" class="nav-link active" aria-current="page">Humedad</a>
+        <a [routerLink]="['/humesuelo']" class="nav-link">Humedad del suelo</a>
+        <a [routerLink]="['/pir']" class="nav-link">Sensor de movimiento</a>
+        <button class="btn btn-dark" (click)="salir()">Salir</button>
+      </div>
+    </div>
   </div>
+</nav>
+
+<div class="container">
   <div class="row">
-    <div class="col-md-8 text-center">
-      <h3>Grafica</h3>
+    <div class="col-md-8">
+  <div>
+    <br>
+    <h1>Humedad</h1>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="actualizar()">Actualizar</button>
+      </div>
+    <br>
+    <p *ngFor="let t of lasthume"><B>Ultima humedad:</B> {{t.Valor}} %</p>
+    <p *ngFor="let m of mosthume"><B>Humedad mas alta:</B> {{m.Valor}} %</p>
+     <p *ngFor="let w of worsthume"><B>Humedad mas baja:</B> {{w.Valor}} %</p>
+  </div>
+  
+      <h3 class="text-center">Grafica</h3>
       <div>
         <div>
           <div style="display: block">
@@ -22,13 +51,14 @@
       </div>
     </div>
     <div class="col-md-4 text-center">
+      <br>
         <h3>Tabla</h3>  
-        <table class="table">
-            <thead>
+        <table class="table table-hover table-striped table-responsive-sm table-fixed col-xs-7 table-condensed">
+            <thead class="thead-dark">
               <tr>
                 <th scope="col">Sensor</th>
                 <th scope="col">Valor</th>
-                <th scope="col">Fecha</th>
+                <th class="col" scope="col">Fecha</th>
               </tr>
             </thead>
             <tbody>

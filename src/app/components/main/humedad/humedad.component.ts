@@ -5,6 +5,7 @@ import { timeMessage , successDialog } from 'src/app/functions/alerts';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-humedad',
@@ -36,9 +37,15 @@ export class HumedadComponent implements OnInit {
   public graphdata = []
 
   humedades:Valores[]
+  lasthume:Valores[]
+  mosthume:Valores[]
+  worsthume:Valores[]
 
-  constructor(private valservice:ValService) { 
+  constructor(private valservice:ValService, private cookie:CookieService) { 
     this.humedades = []
+    this.lasthume=[]
+    this.mosthume=[]
+    this.worsthume=[]
   }
 
   ngOnInit(): void {
@@ -59,7 +66,19 @@ export class HumedadComponent implements OnInit {
       }
       this.barChartLabels = this.graphLabel
       this.barChartData[0].data = this.graphdata
+      console.log(this.barChartData);
+      
     })
+    this.valservice.lasthume().subscribe((data:any)=>{
+      this.lasthume = data
+    })
+    this.valservice.mosthumedad().subscribe((data:any)=>{
+      this.mosthume = data
+    })
+    this.valservice.worsthumedad().subscribe((data:any)=>{
+      this.worsthume = data
+    })
+
   }
 
   // events
@@ -69,6 +88,15 @@ export class HumedadComponent implements OnInit {
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+
+  actualizar(){
+    window.location.reload()
+  }
+
+  salir(){
+    this.cookie.delete('token_acces')
+    window.location.reload()
   }
 
 }
