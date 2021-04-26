@@ -13,7 +13,11 @@ import { HumedadComponent } from './components/main/humedad/humedad.component';
 import { HumesueloComponent } from './components/main/humesuelo/humesuelo.component';
 import { PirComponent } from './components/main/pir/pir.component';
 import { ChartsModule } from 'ng2-charts';
-import { CookieService } from 'ngx-cookie-service'
+import { CookieService } from 'ngx-cookie-service';
+import { TempComponent } from './components/app/temp/temp.component';
+import { HumeComponent } from './components/app/hume/hume.component';
+import { HusuComponent } from './components/app/husu/husu.component';
+import { PComponent } from './components/app/p/p.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { CookieService } from 'ngx-cookie-service'
     TemperaturaComponent,
     HumedadComponent,
     HumesueloComponent,
-    PirComponent
+    PirComponent,
+    TempComponent,
+    HumeComponent,
+    HusuComponent,
+    PComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HumeComponent } from './components/app/hume/hume.component';
+import { HusuComponent } from './components/app/husu/husu.component';
+import { PComponent } from './components/app/p/p.component';
+import { TempComponent } from './components/app/temp/temp.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/main/home/home.component';
@@ -18,6 +22,10 @@ const routes: Routes = [
   {path:'humedad',component:HumedadComponent,canActivate:[VigilantGuard]},
   {path:'humesuelo',component:HumesueloComponent,canActivate:[VigilantGuard]},
   {path:'pir',component:PirComponent,canActivate:[VigilantGuard]},
+  {path:'t',component:TempComponent},
+  {path:'hm',component:HumeComponent},
+  {path:'hs',component:HusuComponent},
+  {path:'p',component:PComponent},
   {path:'**',redirectTo:'/home'}
 ];
 

@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+<div>
+  <br>
+  <h1>Temperatura</h1>
+  <div class="text-center">
+  </div>
+  <br>
+  <!--<button class="btn btn-primary" (click)="actualizar()">Actualizar</button>-->
+  <p *ngFor="let t of datalastemp"><B>Ultima temperatura:</B> {{t.Valor}} °C</p>
+  <p *ngFor="let m of mostemp"><B>Temperatura mas alta:</B> {{m.Valor}} °C</p>
+  <p *ngFor="let w of worstemp"><B>Temperatura mas baja:</B> {{w.Valor}} °C</p>
+
+</div>
+
+      <h3 class="text-center">Grafica</h3>
+      <div>
+        <div>
+          <!--<button type="button" class="btn btn-link btn-sm" (click)="randomize()">Update</button>    
+          <button type="button" class="btn btn-link btn-sm" (click)="randomize()">Update</button>-->
+        </div>
+        <div>
+          <div style="display: block" >
+            <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  <div class="col-md-4 text-center">
+    <br>
+    <h3>Tabla</h3>  
+      <div class="container">
+        <table class="table table-hover table-striped table-responsive-sm table-fixed col-xs-7 table-condensed">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Sensor</th>
+                <th class="col-md-4" scope="col">Valor</th>
+                <th  scope="col">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let items of temperaturas">
+                <td>{{items.Sensor}}</td>
+                <td>{{items.Valor}} °C</td>
+                <td>{{items.Fecha_Hora}}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+</div>
