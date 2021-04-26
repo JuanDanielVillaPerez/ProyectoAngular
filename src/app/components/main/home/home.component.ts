@@ -19,6 +19,10 @@ export class HomeComponent implements OnInit {
   datalasthume: Valores[]
   datalasthumesuelo: Valores[]
   datalastpir: Valores[]
+  toggleBtn = true
+  datafoco:string = ""
+  databomba:string = ""
+  dataventilador:string = ""
 
   constructor(private ValService: ValService, private cookie:CookieService) { 
     this.datalastemp=[]
@@ -29,7 +33,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ws = Ws("wss://invernadero-api.herokuapp.com/",{
+
+    //wss://invernadero-api.herokuapp.com/
+    this.ws = Ws("ws://127.0.0.1:3333/",{
       path: "ws"
     });
 
@@ -71,6 +77,58 @@ export class HomeComponent implements OnInit {
   salir(){
     this.cookie.delete('token_acces')
     window.location.reload()
+  }
+  
+  foco(){
+    //console.log("hola")
+    this.ValService.lastfoco().subscribe((data:any)=>{
+      this.datafoco = data.value
+      console.log(this.datafoco)
+    })
+    if(this.datafoco == "OFF"){
+      this.ValService.foco({"value":"ON"}).subscribe((data:any)=>{
+        console.log(data)
+      })
+    }
+    if(this.datafoco == "ON"){
+      this.ValService.foco({"value":"OFF"}).subscribe((data:any)=>{
+        console.log(data)
+      })
+    }
+  }
+
+  bomba(){
+    this.ValService.lastbomba().subscribe((data:any)=>{
+      this.databomba = data.value
+      console.log(this.databomba)
+    })
+    if(this.databomba == "OFF"){
+      this.ValService.bomba({"value":"ON"}).subscribe((data:any)=>{
+        console.log(data)
+      })
+    }
+    if(this.databomba == "ON"){
+      this.ValService.bomba({"value":"OFF"}).subscribe((data:any)=>{
+        console.log(data)
+      })
+    }
+  }
+
+  ventilador(){
+    this.ValService.lastventilador().subscribe((data:any)=>{
+      this.dataventilador = data.value
+      console.log(this.dataventilador)
+    })
+    if(this.dataventilador == "OFF"){
+      this.ValService.ventilador({"value":"ON"}).subscribe((data:any)=>{
+        console.log(data)
+      })
+    }
+    if(this.dataventilador == "ON"){
+      this.ValService.ventilador({"value":"OFF"}).subscribe((data:any)=>{
+        console.log(data)
+      })
+    }
   }
 
   

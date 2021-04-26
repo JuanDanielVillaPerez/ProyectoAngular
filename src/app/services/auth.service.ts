@@ -20,7 +20,7 @@ export class AuthService {
     return this.http.post(`${this.apiURL}login`, user)
   }
 
-  getToken(){
+  /*getToken(){
     return localStorage.getItem('token')
-  }
+  }*/
 }

@@ -104,19 +104,19 @@
               <tr>
                 <td>
                   <label class="switch">
-                    <input type="checkbox" id="light">
+                    <input (click)="foco()" type="checkbox" id="light" #toggleBtn>
                     <span class="slider"></span>
                   </label>
                 </td>
                 <td>
                   <label class="switch">
-                    <input type="checkbox" id="light2">
+                    <input (click)="bomba()" type="checkbox" id="light2" #toggleBtn>
                     <span class="slider"></span>
                   </label>
                 </td>
                 <td>
                   <label class="switch">
-                    <input type="checkbox" id="light3">
+                    <input (click)="ventilador()" type="checkbox" id="light3" #toggleBtn>
                     <span class="slider"></span>
                   </label> 
                 </td>
