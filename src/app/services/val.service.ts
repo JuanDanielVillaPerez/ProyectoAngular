@@ -75,21 +75,21 @@ export class ValService {
     return this.http.post(`${this.apiFoco}`,value)
   }
   lastfoco():Observable<any>{
-    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.foco/data/last?x-aio-key=aio_kXxm11oYQqzwu46jnF5BQq7j5hp4`)
+    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.foco/data/last?x-aio-key=aio_GsVM58xBH0gx7uLBzisG62fEX0IA`)
   }
 
   bomba(value:Value):Observable<any>{
     return this.http.post(`${this.apiBomba}`,value)
   }
   lastbomba():Observable<any>{
-    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.bomba/data/last?x-aio-key=aio_kXxm11oYQqzwu46jnF5BQq7j5hp4`)
+    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.bomba/data/last?x-aio-key=aio_GsVM58xBH0gx7uLBzisG62fEX0IA`)
   }
 
   ventilador(value:Value):Observable<any>{
     return this.http.post(`${this.apiVetilador}`,value)
   }
   lastventilador():Observable<any>{
-    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.ventilador/data/last?x-aio-key=aio_kXxm11oYQqzwu46jnF5BQq7j5hp4`)
+    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.ventilador/data/last?x-aio-key=aio_GsVM58xBH0gx7uLBzisG62fEX0IA`)
   }
 
 }
