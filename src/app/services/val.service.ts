@@ -3,16 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Valores } from '../models/valores';
-import { Value } from '../models/value';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValService {
   apiURL = environment.apiURL;
-  apiFoco = environment.apiFoco;
-  apiBomba = environment.apiBomba;
-  apiVetilador = environment.apiVentilador;
 
   constructor(private http:HttpClient) { }
 
@@ -69,27 +65,6 @@ export class ValService {
   }
   nodetecta():Observable<any>{
     return this.http.get(`${this.apiURL}nodetecta`)
-  }
-
-  foco(value:Value):Observable<any>{
-    return this.http.post(`${this.apiFoco}`,value)
-  }
-  lastfoco():Observable<any>{
-    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.foco/data/last?x-aio-key=aio_MnET21cnxZOuWAhQDwAFEYtkX5W1`)
-  }
-
-  bomba(value:Value):Observable<any>{
-    return this.http.post(`${this.apiBomba}`,value)
-  }
-  lastbomba():Observable<any>{
-    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.bomba/data/last?x-aio-key=aio_MnET21cnxZOuWAhQDwAFEYtkX5W1`)
-  }
-
-  ventilador(value:Value):Observable<any>{
-    return this.http.post(`${this.apiVetilador}`,value)
-  }
-  lastventilador():Observable<any>{
-    return this.http.get(`https://io.adafruit.com/api/v2/egperezr/feeds/focos.ventilador/data/last?x-aio-key=aio_MnET21cnxZOuWAhQDwAFEYtkX5W1`)
   }
 
 }

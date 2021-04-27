@@ -3,6 +3,7 @@ import { Valores } from 'src/app/models/valores';
 import { ValService } from 'src/app/services/val.service';
 import Ws from "@adonisjs/websocket-client"
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +11,14 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  adonisws = environment.adonisWS;
+
   ws:any;
   chat:any
+  temperatura:any
+  humedad:any
+  humesuelo:any
+  pir:any
   //mensajes:string[] = [];
   //msj:string;
 
@@ -19,10 +26,7 @@ export class HomeComponent implements OnInit {
   datalasthume: Valores[]
   datalasthumesuelo: Valores[]
   datalastpir: Valores[]
-  toggleBtn = true
-  datafoco:string = ""
-  databomba:string = ""
-  dataventilador:string = ""
+ 
 
   constructor(private ValService: ValService, private cookie:CookieService) { 
     this.datalastemp=[]
@@ -33,105 +37,64 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    //wss://invernadero-api.herokuapp.com/
-    //ws://127.0.0.1:3333/
-    this.ws = Ws("wss://invernadero-api.herokuapp.com/",{
+    this.ws = Ws(this.adonisws,{
       path: "ws"
     });
 
     this.ws.connect();
     
     this.chat = this.ws.subscribe("chat");
+    this.temperatura = this.ws.subscribe("temperatura")
+    this.humedad = this.ws.subscribe("humedad")
+    this.humesuelo = this.ws.subscribe("humesuelo")
+    this.pir = this.ws.subscribe("pir")
 
-    //while (true){
-     //window.location.reload();
-     this.ValService.lastemp().subscribe((data:any)=>{
-      console.log(data)
-      this.chat.emit("message",data)
-      
+    //mostrar temperatura
+    this.ValService.lastemp().subscribe((data:any)=>{
+      //console.log(data)
+      this.temperatura.emit("message",data)
     })
-     this.chat.on("message",(data:any)=>{
+     this.temperatura.on("message",(data:any)=>{
       console.log(data);
       this.datalastemp = data;
     })
 
-  
+    //mostrar humedad
     this.ValService.lasthume().subscribe((data:any)=>{
-      console.log(data)
+      //console.log(data)
+      this.humedad.emit("message",data)  
+    })
+    this.humedad.on("message",(data:any)=>{
+      console.log(data);
       this.datalasthume = data;
     })
+
+    //mostrar humedad del suelo
     this.ValService.lasthumesuelo().subscribe((data:any)=>{
-      console.log(data)
+      //console.log(data)
+      this.humesuelo.emit("message",data)
+    })
+    this.humesuelo.on("message",(data:any)=>{
+      console.log()
       this.datalasthumesuelo = data;
     })
+
+    //mostrar pir
     this.ValService.lastpir().subscribe((data:any)=>{
-      console.log(data)
+      //console.log(data)
+      this.pir.emit("message",data)
+    })
+    this.pir.on("message",(data:any)=>{
+      console.log()
       this.datalastpir = data;
     })
 
-    setTimeout( () => { /*Your Code*/ }, 50000 );
+    //setTimeout( () => { /*Your Code*/ }, 50000 );
 
-    //}
   }
 
   salir(){
     this.cookie.delete('token_acces')
     window.location.reload()
   }
-  
-  foco(){
-    //console.log("hola")
-    this.ValService.lastfoco().subscribe((data:any)=>{
-      this.datafoco = data.value
-      console.log(this.datafoco)
-    })
-    if(this.datafoco == "OFF"){
-      this.ValService.foco({"value":"ON"}).subscribe((data:any)=>{
-        console.log(data)
-      })
-    }
-    if(this.datafoco == "ON"){
-      this.ValService.foco({"value":"OFF"}).subscribe((data:any)=>{
-        console.log(data)
-      })
-    }
-  }
-
-  bomba(){
-    this.ValService.lastbomba().subscribe((data:any)=>{
-      this.databomba = data.value
-      console.log(this.databomba)
-    })
-    if(this.databomba == "OFF"){
-      this.ValService.bomba({"value":"ON"}).subscribe((data:any)=>{
-        console.log(data)
-      })
-    }
-    if(this.databomba == "ON"){
-      this.ValService.bomba({"value":"OFF"}).subscribe((data:any)=>{
-        console.log(data)
-      })
-    }
-  }
-
-  ventilador(){
-    this.ValService.lastventilador().subscribe((data:any)=>{
-      this.dataventilador = data.value
-      console.log(this.dataventilador)
-    })
-    if(this.dataventilador == "OFF"){
-      this.ValService.ventilador({"value":"ON"}).subscribe((data:any)=>{
-        console.log(data)
-      })
-    }
-    if(this.dataventilador == "ON"){
-      this.ValService.ventilador({"value":"OFF"}).subscribe((data:any)=>{
-        console.log(data)
-      })
-    }
-  }
-
-  
-
 }
