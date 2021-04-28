@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.cookieService.get('token_acces')){
+      this.router.navigate(['/home'])
+    }
   }
 
   login(): void {
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
         control.markAsTouched()
       })
     }else{
-      console.log(this.user)
+      //console.log(this.user)
       this.setUser()
       this.authService.login(this.user).subscribe((data:any) =>{
         console.log('usuario logeado')
@@ -36,6 +39,7 @@ export class LoginComponent implements OnInit {
           successDialog('Iniciado').then(() => {
             //console.log(data.token)
             this.cookieService.set('token_acces',data.token,4,'/')
+            //localStorage.setItem('token',data.token)
             this.router.navigate(['/home'])
           })
         })

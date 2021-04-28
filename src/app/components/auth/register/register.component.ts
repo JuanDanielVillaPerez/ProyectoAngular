@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { errorMessage, successDialog, timeMessage } from 'src/app/functions/alerts';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,11 +14,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   user:User;
-  constructor(private fb:FormBuilder, private authService:AuthService,private router:Router ) { 
+  constructor(private fb:FormBuilder, private authService:AuthService,private router:Router ,private cookie:CookieService) { 
     this.createForm();
   }
 
   ngOnInit(): void {
+    if(this.cookie.get('token_acces')){
+      this.router.navigate(['/home'])
+    }
   }
 
   register(): void {
@@ -35,11 +39,6 @@ export class RegisterComponent implements OnInit {
           successDialog('Registro Completado');
           this.router.navigate(['/login']);
         });
-        /*this.cookie.set("User",this.user.username)
-        this.cookie.set("email",this.user.email)
-        this.cookie.set("password", this.user.password)
-
-        alert("el usuario "+this.cookie.get("User")+" ha sido registrado correctamente")*/
       }, error => {
         console.log('error')
         errorMessage('Ha ocurrido un error.')

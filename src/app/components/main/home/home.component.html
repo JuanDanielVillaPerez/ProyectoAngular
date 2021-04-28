@@ -103,22 +103,26 @@
               </tr>
               <tr>
                 <td>
-                  <label class="switch">
+                  <mat-slide-toggle [(ngModel)]="Foco" (click)="foco()"></mat-slide-toggle>
+                  <div>{{Foco}}</div>
+                  <!--<label class="switch">
                     <input type="checkbox" id="light">
                     <span class="slider"></span>
-                  </label>
+                  </label>-->
                 </td>
                 <td>
-                  <label class="switch">
+                  <mat-slide-toggle [(ngModel)]="Bomba" (click)="bomba()"></mat-slide-toggle>
+                  <!--<label class="switch">
                     <input type="checkbox" id="light2">
                     <span class="slider"></span>
-                  </label>
+                  </label>-->
                 </td>
                 <td>
-                  <label class="switch">
+                  <mat-slide-toggle [(ngModel)]="Ventilador" (click)="ventilador()"></mat-slide-toggle>
+                  <!--<label class="switch">
                     <input type="checkbox" id="light3">
                     <span class="slider"></span>
-                  </label> 
+                  </label>--> 
                 </td>
               </tr>  
             </table>

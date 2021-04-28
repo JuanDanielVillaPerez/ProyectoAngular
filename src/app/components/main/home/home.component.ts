@@ -27,6 +27,10 @@ export class HomeComponent implements OnInit {
   datalasthumesuelo: Valores[]
   datalastpir: Valores[]
  
+  Foco = false;
+  Bomba = false;
+  Ventilador = false;
+
 
   constructor(private ValService: ValService, private cookie:CookieService) { 
     this.datalastemp=[]
@@ -36,6 +40,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+    
+    console.log(this.Foco)
+    //console.log([this.cookie.get('token_acces')])
 
     this.ws = Ws(this.adonisws,{
       path: "ws"
@@ -48,6 +56,29 @@ export class HomeComponent implements OnInit {
     this.humedad = this.ws.subscribe("humedad")
     this.humesuelo = this.ws.subscribe("humesuelo")
     this.pir = this.ws.subscribe("pir")
+
+    //switches
+    this.chat.on("message",(data:any)=>{
+      console.log(data)
+      if(data == "f"){
+        this.Foco = true;
+      }
+      if(data == "a"){
+        this.Foco = false;
+      }
+      if(data == "x"){
+        this.Ventilador = true;
+      }
+      if(data == "s"){
+        this.Ventilador = false;
+      }
+      if(data == "b"){
+        this.Bomba = true;
+      }
+      if(data == "z"){
+        this.Bomba = false;
+      }
+    })
 
     //mostrar temperatura
     this.ValService.lastemp().subscribe((data:any)=>{
@@ -96,5 +127,33 @@ export class HomeComponent implements OnInit {
   salir(){
     this.cookie.delete('token_acces')
     window.location.reload()
+  }
+
+  foco(){
+    console.log(this.Foco)
+    if(this.Foco == true){
+      this.chat.emit("message","a")
+    }
+    if(this.Foco == false){
+      this.chat.emit("message","f")
+    }
+  }
+  bomba(){
+    console.log(this.Bomba)
+    if(this.Bomba == true){
+      this.chat.emit("message","z")
+    }
+    if(this.Bomba == false){
+      this.chat.emit("message","b")
+    }
+  }
+  ventilador(){
+    console.log(this.Ventilador)
+    if(this.Ventilador == true){
+      this.chat.emit("message","s")
+    }
+    if(this.Ventilador == false){
+      this.chat.emit("message","x")
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +17,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { TempComponent } from './components/app/temp/temp.component';
 import { HumeComponent } from './components/app/hume/hume.component';
 import { HusuComponent } from './components/app/husu/husu.component';
-import { PComponent } from './components/app/p/p.component'
+import { PComponent } from './components/app/p/p.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,11 @@ import { PComponent } from './components/app/p/p.component'
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    FormsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
