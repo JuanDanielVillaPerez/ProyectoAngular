@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     
     
-    console.log(this.Foco)
+    //console.log(this.Foco)
     //console.log([this.cookie.get('token_acces')])
 
     this.ws = Ws(this.adonisws,{
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 
     //switches
     this.chat.on("message",(data:any)=>{
-      console.log(data)
+      //console.log(data)
       if(data == "f"){
         this.Foco = true;
       }
@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
       this.temperatura.emit("message",data)
     })
      this.temperatura.on("message",(data:any)=>{
-      console.log(data);
+      //console.log(data);
       this.datalastemp = data;
     })
 
@@ -96,7 +96,7 @@ export class HomeComponent implements OnInit {
       this.humedad.emit("message",data)  
     })
     this.humedad.on("message",(data:any)=>{
-      console.log(data);
+      //console.log(data);
       this.datalasthume = data;
     })
 
@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit {
       this.humesuelo.emit("message",data)
     })
     this.humesuelo.on("message",(data:any)=>{
-      console.log()
+      //console.log()
       this.datalasthumesuelo = data;
     })
 
@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit {
       this.pir.emit("message",data)
     })
     this.pir.on("message",(data:any)=>{
-      console.log()
+      //console.log()
       this.datalastpir = data;
     })
 
@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit {
   }
 
   foco(){
-    console.log(this.Foco)
+    //console.log(this.Foco)
     if(this.Foco == true){
       this.chat.emit("message","a")
     }
@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit {
     }
   }
   bomba(){
-    console.log(this.Bomba)
+    //console.log(this.Bomba)
     if(this.Bomba == true){
       this.chat.emit("message","z")
     }
@@ -148,7 +148,7 @@ export class HomeComponent implements OnInit {
     }
   }
   ventilador(){
-    console.log(this.Ventilador)
+    //console.log(this.Ventilador)
     if(this.Ventilador == true){
       this.chat.emit("message","s")
     }

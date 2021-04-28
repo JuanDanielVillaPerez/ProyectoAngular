@@ -6,6 +6,8 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment.prod';
+import Ws from "@adonisjs/websocket-client"
 
 @Component({
   selector: 'app-humedad',
@@ -13,6 +15,10 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./humedad.component.css']
 })
 export class HumedadComponent implements OnInit {
+  adonisws = environment.adonisWS;
+
+  ws:any;
+  humedad:any;
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -25,12 +31,12 @@ export class HumedadComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] /*= this.graphLabel*/;
+  public barChartLabels: Label[] = [] /*= this.graphLabel*/;
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
   public barChartData: ChartDataSets[] = [
-    { data: [], label: 'Humedad' }
+    /*{ data: [], label: 'Humedad' }*/
   ];
 
   public graphLabel = []
@@ -52,6 +58,24 @@ export class HumedadComponent implements OnInit {
     timeMessage('Cargando Informacion',500).then(() => {
       successDialog('Informacion cargada');
     });
+    //socket
+    this.ws = Ws(this.adonisws,{
+      path:"ws"
+    })
+    this.ws.connect();
+    this.humedad = this.ws.subscribe("humedad")
+
+    //lasthume
+    this.valservice.lasthume().subscribe((data:any)=>{
+      this.humedad.emit("message",data)
+    })
+    this.humedad.on("message",(data:any)=>{
+      this.lasthume = data
+      this.tabla()
+      this.consulta()
+      this.grafica()
+    })
+
     this.valservice.humedades().subscribe((data:any)=>{
       //console.log(data)
       this.humedades = data
@@ -60,18 +84,18 @@ export class HumedadComponent implements OnInit {
       for(var val of graph){
         const t = val.Valor
         const tt: number = +t
-        this.graphdata = this.graphdata.concat(tt)
+        this.graphdata.push(tt)
         const f = val.Fecha_Hora
-        this.graphLabel = this.graphLabel.concat(f)
+        this.graphLabel.push(f)
       }
+      this.barChartData = [
+        {data:this.graphdata, label:"Humedad"}
+      ]
       this.barChartLabels = this.graphLabel
-      this.barChartData[0].data = this.graphdata
-      console.log(this.barChartData);
+      //console.log(this.barChartData);
       
     })
-    this.valservice.lasthume().subscribe((data:any)=>{
-      this.lasthume = data
-    })
+    
     this.valservice.mosthumedad().subscribe((data:any)=>{
       this.mosthume = data
     })
@@ -79,6 +103,41 @@ export class HumedadComponent implements OnInit {
       this.worsthume = data
     })
 
+  }
+
+  grafica(){
+    this.valservice.humegraph().subscribe((graph:any)=>{
+      for(var val of graph){
+        const t = val.Valor
+        const tt: number = +t
+        this.graphdata.push(tt)
+        const f = val.Fecha_Hora
+        this.graphLabel.push(f)
+      }
+      this.barChartData = [
+        {data:this.graphdata, label:"Humedad"}
+      ]
+      this.barChartLabels = this.graphLabel
+      //console.log(this.barChartData);
+      
+    })
+    var index = 0
+    this.barChartLabels.splice(index,10)
+    this.barChartData[0].data.splice(index,10)
+  }
+  consulta(){
+    this.valservice.mosthumedad().subscribe((data:any)=>{
+      this.mosthume = data
+    })
+    this.valservice.worsthumedad().subscribe((data:any)=>{
+      this.worsthume = data
+    })
+  }
+  tabla(){
+    this.valservice.humedades().subscribe((data:any)=>{
+      //console.log(data)
+      this.humedades = data
+    })
   }
 
   // events

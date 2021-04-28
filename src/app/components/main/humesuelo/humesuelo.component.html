@@ -21,16 +21,16 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
   <div class="text-center">
     <br>
     <h1>Humedad del Suelo</h1>
     <br>
-    <button class="btn btn-primary" (click)="actualizar()">Actualizar</button>
-    <br>
-    <p></p>
+    <!--<p *ngFor="let item of datahumesuelo"><B>Estado:</B> {{item.Valor}}</p>-->
+    <!--<p *ngFor="let i of seco"><B>Estado:</B> {{i.Valor}}</p>
+    <p *ngFor="let it of mojado"><B>Estado:</B> {{it.Valor}}</p>-->
   </div>
-  <div>
+  <!--<div>
     <div>
       <div style="display: block">
         <canvas baseChart
@@ -43,17 +43,17 @@
         </canvas>
       </div>
     </div>
-  </div>
+  </div>-->
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-12 text-center">
       <br>
       <h4>Tabla</h4>  
-      <div class="row">
+      <div class="row text-center">
         <table class="table table-hover table-striped table-responsive-sm table-fixed table-condensed">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Sensor</th>
-                <th scope="col" class="col">Valor</th>
+                <th scope="col">Valor</th>
                 <th scope="col">Fecha</th>
               </tr>
             </thead>
